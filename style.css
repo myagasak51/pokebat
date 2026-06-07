@@ -243,6 +243,20 @@ button { font: inherit; }
 .move-owner { margin: 10px 0 0; color: white; font-size: 17px; font-weight: 900; text-shadow: 0 2px 4px #000; }
 @keyframes corePulse { to { transform: scale(1.18); filter: brightness(1.7); } }
 @keyframes raysSpin { to { transform: rotate(360deg); } }
+.weakness-alert { min-width: min(560px, 90vw); padding: 28px 38px; border: 3px solid #ff4d5f; background: radial-gradient(circle at center, #5b1322, #10060a 72%); box-shadow: 0 0 55px #ff244f99, inset 0 0 35px #000; animation: weaknessShake .22s ease-in-out 3; }
+.weakness-player { margin: 0; color: white; font-size: 21px; font-weight: 900; }
+.weakness-alert h2 { margin: 4px 0 14px; color: var(--yellow); font: clamp(56px, 10vw, 105px) "DotGothic16"; line-height: 1; text-shadow: 4px 4px 0 #740013, 0 0 28px #ff4d5f; }
+.weakness-types { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; }
+.weakness-types span { padding: 6px 18px; color: white; border: 2px solid #ff7382; background: #a60e2b; font-size: clamp(20px, 4vw, 33px); font-weight: 900; box-shadow: 0 0 14px #ff4d5f88; }
+.weakness-label { margin: 18px 0 2px; color: #ffc2c9; font-size: 19px; font-weight: 900; }
+.power-down { display: flex; align-items: center; justify-content: center; gap: 22px; font: clamp(43px, 8vw, 78px) "DotGothic16"; }
+.power-down b { color: white; text-decoration: line-through; text-decoration-color: #ff4d5f; }
+.power-down i { color: var(--yellow); font-style: normal; }
+.power-down strong { color: var(--yellow); text-shadow: 0 0 24px #ffd43b99; }
+@keyframes weaknessShake {
+  25% { transform: translateX(-8px) rotate(-1deg); }
+  75% { transform: translateX(8px) rotate(1deg); }
+}
 .winner-result { display: flex; flex-direction: column; align-items: center; gap: 16px; max-height: calc(100vh - 40px); }
 .winner-result .overlay-title { flex: 0 0 auto; line-height: .9; }
 .winner-card { width: min(330px, 80vw); flex: 0 1 auto; margin: 0 auto; transform: none; }

@@ -1,12 +1,12 @@
 const monsters = [
-  { id: "mewtwo", name: "ミュウツー", types: ["エスパー"], power: 100, image: "assets/pokemon/mewtwo.png", color: "#a879ff", move: "りゅうのはどう", moveFx: "dragon-beam", evolved: { name: "メガミュウツーX", types: ["エスパー", "かくとう"], power: 120, image: "assets/pokemon/mega-mewtwo-x.png", color: "#c18cff" } },
-  { id: "kyogre", name: "カイオーガ", types: ["みず"], power: 98, image: "assets/pokemon/kyogre.png", color: "#2fc4ff", move: "みずのいぶき", moveFx: "water-magic", evolved: { name: "ゲンシカイオーガ", types: ["みず"], power: 118, image: "assets/pokemon/primal-kyogre.png", color: "#19e0ff" } },
-  { id: "groudon", name: "グラードン", types: ["じめん"], power: 98, image: "assets/pokemon/groudon.png", color: "#e36f45", move: "りゅうのはどう", moveFx: "dragon-beam", evolved: { name: "ゲンシグラードン", types: ["じめん", "ほのお"], power: 118, image: "assets/pokemon/primal-groudon.png", color: "#ff6847" } },
-  { id: "zekrom", name: "ゼクロム", types: ["ドラゴン", "でんき"], power: 96, image: "assets/pokemon/zekrom.png", color: "#7d94ac", move: "りゅうのガード", moveFx: "dragon-shield" },
-  { id: "lugia", name: "ルギア", types: ["エスパー", "ひこう"], power: 95, image: "assets/pokemon/lugia.png", color: "#d7edff", move: "はかいこうせん", moveFx: "destruction-light" },
-  { id: "zygarde", name: "ジガルデ", types: ["ドラゴン", "じめん"], power: 94, image: "assets/pokemon/zygarde.png", color: "#76e640", move: "はかいビースト", moveFx: "destruction-beast", evolved: { name: "メガジガルデ", types: ["ドラゴン", "じめん"], power: 95, image: "assets/pokemon/mega-zygarde.png", color: "#a3ff4d" } },
-  { id: "mew", name: "ミュウ", types: ["エスパー"], power: 92, image: "assets/pokemon/mew.png", color: "#ff8ecb", move: "はどうだん", moveFx: "aura-orb" },
-  { id: "fire", name: "ファイアー", types: ["ほのお", "ひこう"], power: 82, image: "assets/pokemon/moltres.png", color: "#ff9d32", move: "ねつのいぶき", moveFx: "fire-magic", evolved: { name: "ファイアー（ガラル）", types: ["あく", "ひこう"], power: 86, image: "assets/pokemon/galarian-moltres.png", color: "#cf4777" } }
+  { id: "mewtwo", name: "ミュウツー", types: ["エスパー"], power: 100, weaknesses: ["むし", "ゴースト", "あく"], image: "assets/pokemon/mewtwo.png", color: "#a879ff", move: "りゅうのはどう", moveFx: "dragon-beam", evolved: { name: "メガミュウツーX", types: ["エスパー", "かくとう"], power: 120, image: "assets/pokemon/mega-mewtwo-x.png", color: "#c18cff" } },
+  { id: "kyogre", name: "カイオーガ", types: ["みず"], power: 98, weaknesses: ["でんき", "くさ"], image: "assets/pokemon/kyogre.png", color: "#2fc4ff", move: "みずのいぶき", moveFx: "water-magic", evolved: { name: "ゲンシカイオーガ", types: ["みず"], power: 118, image: "assets/pokemon/primal-kyogre.png", color: "#19e0ff" } },
+  { id: "groudon", name: "グラードン", types: ["じめん"], power: 98, weaknesses: ["みず", "くさ", "こおり"], image: "assets/pokemon/groudon.png", color: "#e36f45", move: "りゅうのはどう", moveFx: "dragon-beam", evolved: { name: "ゲンシグラードン", types: ["じめん", "ほのお"], power: 118, image: "assets/pokemon/primal-groudon.png", color: "#ff6847" } },
+  { id: "zekrom", name: "ゼクロム", types: ["ドラゴン", "でんき"], power: 96, weaknesses: ["じめん", "こおり", "ドラゴン", "フェアリー"], image: "assets/pokemon/zekrom.png", color: "#7d94ac", move: "りゅうのガード", moveFx: "dragon-shield" },
+  { id: "lugia", name: "ルギア", types: ["エスパー", "ひこう"], power: 95, weaknesses: ["でんき", "こおり", "いわ", "ゴースト", "あく"], image: "assets/pokemon/lugia.png", color: "#d7edff", move: "はかいこうせん", moveFx: "destruction-light" },
+  { id: "zygarde", name: "ジガルデ", types: ["ドラゴン", "じめん"], power: 94, weaknesses: ["こおり", "ドラゴン", "フェアリー"], image: "assets/pokemon/zygarde.png", color: "#76e640", move: "はかいビースト", moveFx: "destruction-beast", evolved: { name: "メガジガルデ", types: ["ドラゴン", "じめん"], power: 95, image: "assets/pokemon/mega-zygarde.png", color: "#a3ff4d" } },
+  { id: "mew", name: "ミュウ", types: ["エスパー"], power: 92, weaknesses: ["むし", "ゴースト", "あく"], image: "assets/pokemon/mew.png", color: "#ff8ecb", move: "はどうだん", moveFx: "aura-orb" },
+  { id: "fire", name: "ファイアー", types: ["ほのお", "ひこう"], power: 82, weaknesses: ["いわ", "みず", "でんき"], image: "assets/pokemon/moltres.png", color: "#ff9d32", move: "ねつのいぶき", moveFx: "fire-magic", evolved: { name: "ファイアー（ガラル）", types: ["あく", "ひこう"], power: 86, image: "assets/pokemon/galarian-moltres.png", color: "#cf4777" } }
 ];
 
 const state = {
@@ -242,10 +242,48 @@ function selectedData(selection) {
   return selection.evolved && selection.monster.evolved ? selection.monster.evolved : selection.monster;
 }
 
+function battlePower(selection, opponentSelection) {
+  const data = selectedData(selection);
+  const opponent = selectedData(opponentSelection);
+  const matchedWeaknesses = opponent.types.filter(type => selection.monster.weaknesses.includes(type));
+  const reducedPower = matchedWeaknesses.length
+    ? Math.round(data.power * .8 * 10) / 10
+    : data.power;
+
+  return {
+    originalPower: data.power,
+    power: reducedPower,
+    matchedWeaknesses
+  };
+}
+
 async function runBattle() {
   state.busy = true;
   $("#battleInstruction").textContent = "バトル準備...";
   await wait(3000);
+
+  const battlePowers = [
+    battlePower(state.selected[0], state.selected[1]),
+    battlePower(state.selected[1], state.selected[0])
+  ];
+
+  for (let player = 0; player < 2; player++) {
+    const result = battlePowers[player];
+    if (!result.matchedWeaknesses.length) continue;
+    const data = selectedData(state.selected[player]);
+    tone(210, .45, "sawtooth");
+    await showOverlay(`
+      <div class="weakness-alert">
+        <p class="weakness-player">${player + 1}P ${data.name}</p>
+        <h2>弱点！</h2>
+        <div class="weakness-types">${result.matchedWeaknesses.map(type => `<span>${type}</span>`).join("")}</div>
+        <p class="weakness-label">強さが 20% ダウン</p>
+        <div class="power-down">
+          <b>${result.originalPower}</b><i>→</i><strong>${result.power}</strong>
+        </div>
+      </div>
+    `, 2000);
+  }
 
   for (let player = 0; player < 2; player++) {
     const selection = state.selected[player];
@@ -267,7 +305,7 @@ async function runBattle() {
     `, 2000);
   }
 
-  const powers = state.selected.map(selectedData).map(data => data.power);
+  const powers = battlePowers.map(result => result.power);
   let winner = -1;
   if (powers[0] > powers[1]) winner = 0;
   if (powers[1] > powers[0]) winner = 1;
