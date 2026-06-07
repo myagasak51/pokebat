@@ -78,7 +78,11 @@ function updateTeams() {
     $(`#teamP${player + 1}`).innerHTML = [0, 1].map(index =>
       team[index] ? monsterCard(team[index]) : `<div class="empty-slot">EMPTY SLOT 0${index + 1}</div>`
     ).join("");
-    $(`#ticketP${player + 1}`).textContent = `EVOLUTION × ${state.tickets[player]}`;
+    $(`#ticketP${player + 1}`).innerHTML = `
+      <span class="ticket-icon" aria-hidden="true"><i>進化</i></span>
+      <span class="ticket-copy"><small>進化チケット</small><b>× ${state.tickets[player]}</b></span>
+    `;
+    $(`#ticketP${player + 1}`).classList.toggle("has-ticket", state.tickets[player] > 0);
   });
 }
 

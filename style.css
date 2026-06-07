@@ -127,10 +127,21 @@ button { font: inherit; }
 .draft-layout { max-width: 1250px; margin: auto; display: grid; grid-template-columns: 280px 1fr 280px; gap: 28px; align-items: center; }
 .team-panel { min-height: 430px; border-top: 3px solid var(--blue); background: linear-gradient(#142842cc, #0a1422cc); box-shadow: 0 15px 50px #0004; }
 .team-panel.red-team { border-color: var(--red); }
-.team-title { display: flex; justify-content: space-between; padding: 12px 14px; border-bottom: 1px solid var(--line); font: 12px "DotGothic16"; }
+.team-title { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); font: 12px "DotGothic16"; }
 .blue-team .team-title span { color: var(--blue); }
 .red-team .team-title span { color: var(--red); }
-.team-title em { color: var(--yellow); font-style: normal; font-size: 9px; }
+.team-title em { min-width: 134px; display: flex; align-items: center; justify-content: flex-end; gap: 7px; color: var(--yellow); font-style: normal; }
+.ticket-icon { width: 46px; height: 30px; flex: 0 0 auto; display: grid; place-items: center; position: relative; color: #151000 !important; border: 2px solid #fff1a1; border-radius: 4px; background: linear-gradient(135deg, #fff4a6, var(--yellow) 50%, #e3a600); box-shadow: 0 3px 0 #805d00, 0 0 12px #ffd43b55; transform: rotate(-4deg); }
+.ticket-icon::before, .ticket-icon::after { content: ""; position: absolute; top: 50%; width: 8px; height: 8px; border-radius: 50%; background: #101c2b; transform: translateY(-50%); }
+.ticket-icon::before { left: -5px; }
+.ticket-icon::after { right: -5px; }
+.ticket-icon i { color: #151000; font: 10px "DotGothic16"; font-style: normal; }
+.ticket-copy { display: flex; flex-direction: column; align-items: flex-start; line-height: 1; color: white !important; }
+.ticket-copy small { color: #aab7c7; font-size: 8px; white-space: nowrap; }
+.ticket-copy b { margin-top: 3px; color: #65758a; font: 22px "DotGothic16"; }
+.team-title em.has-ticket .ticket-icon { animation: ticketGlow .75s infinite alternate; }
+.team-title em.has-ticket .ticket-copy b { color: var(--yellow); font-size: 25px; text-shadow: 0 0 12px #ffd43b99; }
+@keyframes ticketGlow { to { transform: rotate(3deg) scale(1.08); box-shadow: 0 3px 0 #805d00, 0 0 22px #ffd43bcc; } }
 .team-slots { padding: 14px; display: grid; gap: 12px; }
 .empty-slot { height: 174px; display: grid; place-items: center; border: 1px dashed #30435b; color: #43556b; font: 11px "DotGothic16"; }
 
