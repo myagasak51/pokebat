@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ポケバト</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="topbar">
+    <button class="brand" id="brandButton" aria-label="タイトルへ戻る">
+      <span class="brand-ball"></span>
+      <span>POKE<span>BAT</span></span>
+    </button>
+    <div class="step-track" id="stepTrack">
+      <span class="active">MODE</span><i></i><span>DRAFT</span><i></i><span>BATTLE</span><i></i><span>RESULT</span>
+    </div>
+    <button class="sound-button" id="soundButton" aria-label="効果音の切り替え">SOUND <b>ON</b></button>
+  </header>
+
+  <main id="app">
+    <section class="screen mode-screen active" id="modeScreen">
+      <div class="hero-copy">
+        <p class="eyebrow">ORIGINAL MONSTER BATTLE</p>
+        <h1>ポケ<span>バト</span></h1>
+        <p class="lead">運をつかんで、強さで決めろ。</p>
+      </div>
+      <div class="mode-panel">
+        <p class="panel-label">SELECT BATTLE MODE</p>
+        <div class="mode-grid">
+          <button class="mode-card" data-mode="cpu">
+            <span class="mode-number">1P</span>
+            <span class="mode-icon">VS CPU</span>
+            <strong>ひとりで対戦</strong>
+            <small>コンピューターに挑戦</small>
+          </button>
+          <button class="mode-card red" data-mode="versus">
+            <span class="mode-number">2P</span>
+            <span class="mode-icon">VS PLAYER</span>
+            <strong>ふたりで対戦</strong>
+            <small>同じ画面で真剣勝負</small>
+          </button>
+        </div>
+      </div>
+      <p class="copyright">FAN-MADE ORIGINAL GAME UI / CHARACTER ART IS ABSTRACT</p>
+    </section>
+
+    <section class="screen draft-screen" id="draftScreen">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">MONSTER DRAFT</p>
+          <h2><span id="draftPlayer">1P</span> のポケモンを選ぼう</h2>
+        </div>
+        <div class="draft-count"><b id="draftCount">01</b><span>/ 04</span></div>
+      </div>
+
+      <div class="draft-layout">
+        <aside class="team-panel blue-team">
+          <div class="team-title"><span>1P TEAM</span><em id="ticketP1">EVOLUTION × 0</em></div>
+          <div class="team-slots" id="teamP1"></div>
+        </aside>
+
+        <div class="roulette-zone">
+          <div class="turn-badge" id="turnBadge">1P PICK</div>
+          <div class="roulette" id="roulette">
+            <div class="roulette-ring" id="rouletteRing"></div>
+            <button class="start-button" id="rouletteButton">
+              <span>PRESS</span>
+              <strong>START</strong>
+            </button>
+          </div>
+          <p class="roulette-help" id="rouletteHelp">ボタンを押してルーレットを回そう</p>
+        </div>
+
+        <aside class="team-panel red-team">
+          <div class="team-title"><span>2P TEAM</span><em id="ticketP2">EVOLUTION × 0</em></div>
+          <div class="team-slots" id="teamP2"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="screen battle-screen" id="battleScreen">
+      <div class="battle-header">
+        <div><p class="eyebrow">ROUND <span id="roundNumber">1</span> / 2</p><h2 id="battleInstruction">ポケモンを選択</h2></div>
+        <div class="scoreboard"><span>1P <b id="scoreP1">0</b></span><i>—</i><span><b id="scoreP2">0</b> 2P</span></div>
+      </div>
+      <div class="arena">
+        <div class="battle-side side-p1">
+          <div class="side-label">PLAYER 1</div>
+          <div class="fighter-stage" id="fighterP1"><span class="waiting">SELECT</span></div>
+          <div class="choice-list" id="choicesP1"></div>
+        </div>
+        <div class="versus-mark">VS</div>
+        <div class="battle-side side-p2">
+          <div class="side-label">PLAYER 2</div>
+          <div class="fighter-stage" id="fighterP2"><span class="waiting">WAIT</span></div>
+          <div class="choice-list" id="choicesP2"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen result-screen" id="resultScreen">
+      <p class="eyebrow">BATTLE COMPLETE</p>
+      <div class="result-crown">FINAL RESULT</div>
+      <h2 id="finalResult">1P WIN!</h2>
+      <p id="finalScore">2 — 0</p>
+      <div class="result-actions">
+        <button id="restartButton" class="action-button primary">もう一度 <span>STEP 2へ</span></button>
+        <button id="finishButton" class="action-button">終了する <span>MODE選択へ</span></button>
+      </div>
+    </section>
+  </main>
+
+  <div class="overlay" id="overlay" aria-live="assertive">
+    <div class="overlay-content" id="overlayContent"></div>
+  </div>
+
+  <div class="modal" id="evolveModal">
+    <div class="modal-card">
+      <p class="eyebrow">EVOLUTION TICKET</p>
+      <h3>進化チケットを使う？</h3>
+      <div id="evolvePreview"></div>
+      <div class="modal-actions">
+        <button id="evolveYes" class="action-button primary">進化する！</button>
+        <button id="evolveNo" class="action-button">そのまま戦う</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
