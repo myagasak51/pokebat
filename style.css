@@ -191,8 +191,13 @@ button { font: inherit; }
 .arena { max-width: 1150px; min-height: 570px; margin: auto; display: grid; grid-template-columns: 1fr 80px 1fr; align-items: stretch; }
 .battle-side { padding: 20px; border-top: 3px solid var(--blue); background: linear-gradient(180deg, #10263dbb, #08111ecc); }
 .side-p2 { border-color: var(--red); }
+.battle-side-head { min-height: 42px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .side-label { color: var(--blue); font: 12px "DotGothic16"; letter-spacing: 2px; }
 .side-p2 .side-label { color: var(--red); text-align: right; }
+.battle-ticket { display: flex; align-items: center; gap: 8px; }
+.battle-ticket .ticket-copy b { font-size: 24px; }
+.battle-ticket.has-ticket .ticket-icon { animation: ticketGlow .75s infinite alternate; }
+.battle-ticket.has-ticket .ticket-copy b { color: var(--yellow); text-shadow: 0 0 12px #ffd43b99; }
 .fighter-stage { height: 330px; display: grid; place-items: center; background: radial-gradient(ellipse at center bottom, #1c446444, transparent 58%); }
 .side-p2 .fighter-stage { background: radial-gradient(ellipse at center bottom, #6b273944, transparent 58%); }
 .fighter-stage .monster-card { width: 250px; transform: scale(1.18); }

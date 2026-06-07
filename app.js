@@ -84,6 +84,19 @@ function updateTeams() {
     `;
     $(`#ticketP${player + 1}`).classList.toggle("has-ticket", state.tickets[player] > 0);
   });
+  updateBattleTickets();
+}
+
+function updateBattleTickets() {
+  [0, 1].forEach(player => {
+    const container = $(`#battleTicketP${player + 1}`);
+    if (!container) return;
+    container.innerHTML = `
+      <span class="ticket-icon" aria-hidden="true"><i>進化</i></span>
+      <span class="ticket-copy"><small>進化チケット</small><b>× ${state.tickets[player]}</b></span>
+    `;
+    container.classList.toggle("has-ticket", state.tickets[player] > 0);
+  });
 }
 
 function updateDraftHeader() {
@@ -179,6 +192,7 @@ function renderRound() {
   $("#battleInstruction").textContent = "1P ポケモンを選択";
   $("#fighterP1").innerHTML = `<span class="waiting">SELECT</span>`;
   $("#fighterP2").innerHTML = `<span class="waiting">WAIT</span>`;
+  updateBattleTickets();
   renderChoices();
 }
 
@@ -205,6 +219,7 @@ async function chooseMonster(player, index) {
       : await askEvolution(monster);
     if (useEvolution) {
       state.tickets[player]--;
+      updateTeams();
       state.selected[player].evolved = true;
       $(`#fighterP${player + 1}`).innerHTML = monsterCard(monster, true);
       tone(850, .45, "sine");
