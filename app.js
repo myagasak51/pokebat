@@ -284,14 +284,11 @@ function renderHistoryFighter(entry, player) {
   `;
 }
 
-function renderBattleHistory() {
-  const container = $("#historyList");
-  if (!container) return;
+function historyMarkup() {
   if (!state.history.length) {
-    container.innerHTML = `<p class="history-empty">バトル終了後、ここに対戦結果が表示されます</p>`;
-    return;
+    return `<p class="history-empty">バトル終了後、ここに対戦結果が表示されます</p>`;
   }
-  container.innerHTML = state.history.map((entry, index) => `
+  return state.history.map((entry, index) => `
     <article class="history-round">
       <div class="history-round-label">ROUND ${index + 1}</div>
       <div class="history-match">
@@ -304,6 +301,16 @@ function renderBattleHistory() {
       </div>
     </article>
   `).join("");
+}
+
+function renderBattleHistory() {
+  const container = $("#historyList");
+  if (container) container.innerHTML = historyMarkup();
+}
+
+function renderFinalHistory() {
+  const container = $("#finalHistoryList");
+  if (container) container.innerHTML = historyMarkup();
 }
 
 function battlePower(defenderSelection, opponentSelection) {
@@ -424,6 +431,7 @@ function showFinalResult() {
   const [p1, p2] = state.score;
   $("#finalResult").textContent = p1 > p2 ? "1P WIN!" : p2 > p1 ? "2P WIN!" : "ひきわけ！";
   $("#finalScore").textContent = `${p1} — ${p2}`;
+  renderFinalHistory();
   tone(p1 !== p2 ? 740 : 440, .8, "sine");
 }
 
