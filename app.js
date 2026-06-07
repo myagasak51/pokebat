@@ -295,9 +295,9 @@ async function runBattle() {
 function showFinalResult() {
   showScreen("resultScreen", 3);
   const [p1, p2] = state.score;
-  $("#finalResult").textContent = p1 === 2 ? "1P WIN!" : p2 === 2 ? "2P WIN!" : "ひきわけ！";
+  $("#finalResult").textContent = p1 > p2 ? "1P WIN!" : p2 > p1 ? "2P WIN!" : "ひきわけ！";
   $("#finalScore").textContent = `${p1} — ${p2}`;
-  tone(p1 === 2 || p2 === 2 ? 740 : 440, .8, "sine");
+  tone(p1 !== p2 ? 740 : 440, .8, "sine");
 }
 
 function startDraft() {
