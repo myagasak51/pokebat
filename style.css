@@ -232,7 +232,14 @@ button { font: inherit; }
 .reveal-card .monster-visual { height: 270px; min-height: 270px; margin-top: 12px; padding: 8px; }
 .reveal-card .monster-name { font-size: 23px; }
 .ticket-win { color: var(--yellow); font: clamp(34px, 6vw, 65px) "DotGothic16"; animation: ticketPulse .7s infinite alternate; }
+.ticket-get-icon { height: 94px; display: grid; place-items: center; margin-bottom: 8px; }
+.ticket-get-icon .ticket-icon { width: 125px; height: 78px; border-width: 4px; box-shadow: 0 7px 0 #805d00, 0 0 35px #ffd43bcc; animation: ticketGet .55s infinite alternate; }
+.ticket-get-icon .ticket-icon::before, .ticket-get-icon .ticket-icon::after { width: 20px; height: 20px; }
+.ticket-get-icon .ticket-icon::before { left: -12px; }
+.ticket-get-icon .ticket-icon::after { right: -12px; }
+.ticket-get-icon .ticket-icon i { font-size: 25px; }
 @keyframes ticketPulse { to { transform: scale(1.08); text-shadow: 0 0 30px #ffd43b; } }
+@keyframes ticketGet { to { transform: rotate(4deg) scale(1.09); filter: brightness(1.2); } }
 .move-art { width: min(390px, 82vw); height: 280px; margin: 8px auto 12px; position: relative; display: grid; place-items: center; overflow: hidden; border: 2px solid color-mix(in srgb, var(--accent) 70%, white); border-radius: 24px; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 36%, #07111f), #02050c 72%); box-shadow: 0 0 50px color-mix(in srgb, var(--accent) 35%, transparent), inset 0 0 45px #000; }
 .move-player { display: inline-block; margin-bottom: 8px; padding: 6px 22px; color: #07111f; background: var(--blue); font: 18px "DotGothic16"; box-shadow: 0 0 22px #2fc4ff88; }
 .move-player.player-2 { background: var(--red); box-shadow: 0 0 22px #ff4d5f88; }
@@ -286,6 +293,32 @@ button { font: inherit; }
 .winner-card .monster-visual { min-height: 0; height: auto; }
 .winner-result .overlay-subtitle { flex: 0 0 auto; margin: 0; }
 
+.battle-history { max-width: 1150px; margin: 28px auto 0; padding: 18px; border: 1px solid #304863; border-top: 3px solid var(--yellow); background: #07111ee8; box-shadow: 0 16px 45px #0006; }
+.history-heading { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; }
+.history-heading span { color: var(--yellow); font: 11px "DotGothic16"; letter-spacing: 2px; }
+.history-heading strong { color: white; font-size: 22px; }
+.history-list { display: grid; gap: 14px; }
+.history-empty { margin: 10px; color: #61748b; text-align: center; font-size: 13px; }
+.history-round { position: relative; padding: 13px 14px 14px; border: 1px solid #30445c; background: linear-gradient(135deg, #102239, #090f1a); }
+.history-round-label { position: absolute; top: -1px; left: -1px; padding: 4px 12px; color: #171000; background: var(--yellow); font: 10px "DotGothic16"; z-index: 2; }
+.history-match { display: grid; grid-template-columns: 1fr 45px 1fr; align-items: center; gap: 10px; }
+.history-fighter { min-height: 132px; padding: 9px; display: grid; grid-template-columns: 105px 1fr; align-items: center; gap: 10px; position: relative; border: 1px solid #344b65; background: #0c1929; overflow: hidden; }
+.history-fighter.history-p1 { border-left: 4px solid var(--blue); }
+.history-fighter.history-p2 { border-right: 4px solid var(--red); }
+.history-fighter.win { background: linear-gradient(135deg, #173c39, #0c1929); border-color: #4ac990; }
+.history-fighter.lose { opacity: .78; }
+.history-fighter img { width: 105px; height: 105px; object-fit: contain; filter: drop-shadow(0 5px 5px #000); }
+.history-outcome { position: absolute; top: 5px; right: 7px; color: #7d8da1; font: 10px "DotGothic16"; }
+.history-fighter.win .history-outcome { color: var(--green); }
+.history-fighter-info strong { display: block; padding-right: 38px; color: white; font-size: 17px; }
+.history-types { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.history-types span { padding: 2px 7px; color: #cbd8e7; border: 1px solid #526b86; background: #07111f; font-size: 10px; }
+.history-fighter-info p { margin: 7px 0 0; color: #8da0b7; font-size: 11px; }
+.history-fighter-info p b { margin-left: 5px; color: var(--yellow); font: 22px "DotGothic16"; }
+.history-vs { color: var(--yellow); text-align: center; font: 18px "DotGothic16"; }
+.history-result { margin-top: 9px; color: var(--green); text-align: center; font: 19px "DotGothic16"; text-shadow: 0 0 12px #6ee7a866; }
+.history-result.draw { color: var(--yellow); }
+
 .modal-card { width: min(560px, 95vw); padding: 28px; border: 1px solid #526a83; border-top: 4px solid var(--yellow); text-align: center; background: #101d2e; box-shadow: 0 30px 80px #000a; }
 .modal-card h3 { margin: 5px 0 18px; font-size: 27px; }
 .evolve-compare { display: grid; grid-template-columns: 1fr 35px 1fr; align-items: center; gap: 8px; margin-bottom: 22px; }
@@ -321,4 +354,9 @@ button { font: inherit; }
   .move-art { width: min(330px, 82vw); height: 225px; }
   .winner-result { gap: 10px; }
   .winner-card .monster-card { height: min(340px, 56vh); }
+  .battle-history { padding: 12px 8px; }
+  .history-match { grid-template-columns: 1fr; }
+  .history-vs { padding: 2px; }
+  .history-fighter { grid-template-columns: 90px 1fr; }
+  .history-fighter img { width: 90px; height: 90px; }
 }

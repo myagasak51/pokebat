@@ -18,6 +18,7 @@ const state = {
   score: [0, 0],
   used: [new Set(), new Set()],
   selected: [null, null],
+  history: [],
   sound: true,
   busy: false
 };
@@ -67,9 +68,11 @@ function resetGame() {
   state.score = [0, 0];
   state.used = [new Set(), new Set()];
   state.selected = [null, null];
+  state.history = [];
   state.busy = false;
   updateTeams();
   updateDraftHeader();
+  renderBattleHistory();
 }
 
 function updateTeams() {
@@ -153,7 +156,11 @@ async function spinRoulette() {
     state.tickets[player]++;
     updateTeams();
     tone(920, .4, "sine");
-    await showOverlay(`<div class="ticket-win">進化チケット<br>GET!</div><p class="overlay-subtitle">${player + 1}P EVOLUTION × ${state.tickets[player]}</p>`, 1800);
+    await showOverlay(`
+      <div class="ticket-get-icon"><span class="ticket-icon"><i>進化</i></span></div>
+      <div class="ticket-win">進化チケット<br>GET!</div>
+      <p class="overlay-subtitle">${player + 1}P / チケット × ${state.tickets[player]}</p>
+    `, 1800);
   }
 
   if (state.picks >= 4) {
@@ -261,6 +268,44 @@ function selectedData(selection) {
   return selection.evolved && selection.monster.evolved ? selection.monster.evolved : selection.monster;
 }
 
+function renderHistoryFighter(entry, player) {
+  const fighter = entry.fighters[player];
+  const outcome = entry.winner === player ? "WIN" : entry.winner < 0 ? "DRAW" : "LOSE";
+  return `
+    <div class="history-fighter history-p${player + 1} ${outcome.toLowerCase()}">
+      <div class="history-outcome">${outcome}</div>
+      <img src="${fighter.image}" alt="${fighter.name}">
+      <div class="history-fighter-info">
+        <strong>${fighter.name}</strong>
+        <div class="history-types">${fighter.types.map(type => `<span>${type}</span>`).join("")}</div>
+        <p>補正後の強さ <b>${fighter.power}</b></p>
+      </div>
+    </div>
+  `;
+}
+
+function renderBattleHistory() {
+  const container = $("#historyList");
+  if (!container) return;
+  if (!state.history.length) {
+    container.innerHTML = `<p class="history-empty">バトル終了後、ここに対戦結果が表示されます</p>`;
+    return;
+  }
+  container.innerHTML = state.history.map((entry, index) => `
+    <article class="history-round">
+      <div class="history-round-label">ROUND ${index + 1}</div>
+      <div class="history-match">
+        ${renderHistoryFighter(entry, 0)}
+        <div class="history-vs">VS</div>
+        ${renderHistoryFighter(entry, 1)}
+      </div>
+      <div class="history-result ${entry.winner < 0 ? "draw" : ""}">
+        ${entry.winner < 0 ? "ひきわけ" : `${entry.winner + 1}P WIN!`}
+      </div>
+    </article>
+  `).join("");
+}
+
 function battlePower(selection, opponentSelection) {
   const data = selectedData(selection);
   const opponent = selectedData(opponentSelection);
@@ -335,6 +380,20 @@ async function runBattle() {
   if (powers[1] > powers[0]) winner = 1;
   if (winner >= 0) state.score[winner]++;
 
+  state.history.push({
+    winner,
+    fighters: state.selected.map((selection, player) => {
+      const data = selectedData(selection);
+      return {
+        name: data.name,
+        image: data.image,
+        types: data.types,
+        power: battlePowers[player].power
+      };
+    })
+  });
+  renderBattleHistory();
+
   const resultHtml = winner < 0
     ? `<p class="overlay-title">DRAW!</p><p class="overlay-subtitle">POWER ${powers[0]} — ${powers[1]}</p>`
     : `<div class="winner-result"><p class="overlay-title">WIN!</p><div class="reveal-card winner-card">${monsterCard(state.selected[winner].monster, state.selected[winner].evolved)}</div><p class="overlay-subtitle">${winner + 1}P / POWER ${powers[winner]}</p></div>`;
@@ -350,6 +409,9 @@ async function runBattle() {
   if (state.round < 2) {
     renderRound();
   } else {
+    $("#battleInstruction").textContent = "全バトル終了";
+    $("#battleHistory").scrollIntoView({ behavior: "smooth", block: "end" });
+    await wait(3000);
     showFinalResult();
   }
 }
