@@ -282,7 +282,7 @@ async function runBattle() {
           <b>${result.originalPower}</b><i>→</i><strong>${result.power}</strong>
         </div>
       </div>
-    `, 2000);
+    `, 3000);
   }
 
   for (let player = 0; player < 2; player++) {
