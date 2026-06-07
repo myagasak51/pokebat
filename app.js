@@ -306,16 +306,18 @@ function renderBattleHistory() {
   `).join("");
 }
 
-function battlePower(selection, opponentSelection) {
-  const data = selectedData(selection);
+function battlePower(defenderSelection, opponentSelection) {
+  const defender = selectedData(defenderSelection);
   const opponent = selectedData(opponentSelection);
-  const matchedWeaknesses = opponent.types.filter(type => selection.monster.weaknesses.includes(type));
+  const matchedWeaknesses = opponent.types.filter(type =>
+    defenderSelection.monster.weaknesses.includes(type)
+  );
   const reducedPower = matchedWeaknesses.length
-    ? Math.round(data.power * .8 * 10) / 10
-    : data.power;
+    ? Math.round(defender.power * .8 * 10) / 10
+    : defender.power;
 
   return {
-    originalPower: data.power,
+    originalPower: defender.power,
     power: reducedPower,
     matchedWeaknesses
   };
@@ -326,10 +328,11 @@ async function runBattle() {
   $("#battleInstruction").textContent = "バトル準備...";
   await wait(3000);
 
-  const battlePowers = [
-    battlePower(state.selected[0], state.selected[1]),
-    battlePower(state.selected[1], state.selected[0])
-  ];
+  // Each side is calculated independently from its own original power.
+  // A weakness only reduces that Pokemon; it never changes the opponent's value.
+  const battlePowers = state.selected.map((selection, player) =>
+    battlePower(selection, state.selected[1 - player])
+  );
 
   for (let player = 0; player < 2; player++) {
     const result = battlePowers[player];
