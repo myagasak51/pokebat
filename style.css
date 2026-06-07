@@ -241,6 +241,12 @@ button { font: inherit; }
 .destruction-beast .move-core { border-radius: 30% 70% 45% 55%; transform: rotate(20deg); }
 .move-name { position: relative; margin: 0; padding: 7px 28px 10px; display: inline-block; color: #171000; background: var(--yellow); font-size: clamp(30px, 6vw, 58px); font-weight: 900; line-height: 1.05; letter-spacing: .08em; text-shadow: 0 1px white; clip-path: polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%); }
 .move-owner { margin: 10px 0 0; color: white; font-size: 17px; font-weight: 900; text-shadow: 0 2px 4px #000; }
+.move-power { display: inline-flex; align-items: center; gap: 10px; margin-top: 9px; padding: 5px 13px; color: var(--yellow); border: 1px solid #ffd43b88; background: #050b13e8; box-shadow: 0 0 18px #ffd43b33; }
+.move-power span { color: #aab7c7; font: 10px "DotGothic16"; letter-spacing: 1px; }
+.move-power strong { font: 29px "DotGothic16"; line-height: 1; text-shadow: 0 0 13px #ffd43b99; }
+.move-power small { padding: 3px 7px; color: white; background: #a60e2b; font-size: 10px; font-weight: 900; }
+.move-power.reduced { border-color: #ff4d5f; color: #ff7b89; box-shadow: 0 0 18px #ff4d5f44; }
+.move-power.reduced strong { text-shadow: 0 0 13px #ff4d5f99; }
 @keyframes corePulse { to { transform: scale(1.18); filter: brightness(1.7); } }
 @keyframes raysSpin { to { transform: rotate(360deg); } }
 .weakness-alert { min-width: min(560px, 90vw); padding: 28px 38px; border: 3px solid #ff4d5f; background: radial-gradient(circle at center, #5b1322, #10060a 72%); box-shadow: 0 0 55px #ff244f99, inset 0 0 35px #000; animation: weaknessShake .22s ease-in-out 3; }

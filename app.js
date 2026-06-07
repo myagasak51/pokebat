@@ -302,6 +302,11 @@ async function runBattle() {
       </div>
       <h2 class="move-name">${selection.monster.move}</h2>
       <p class="move-owner">${data.name} の必殺技！</p>
+      <div class="move-power ${battlePowers[player].matchedWeaknesses.length ? "reduced" : ""}">
+        <span>BATTLE POWER</span>
+        <strong>${battlePowers[player].power}</strong>
+        ${battlePowers[player].matchedWeaknesses.length ? `<small>弱点補正後</small>` : ""}
+      </div>
     `, 2000);
   }
 
